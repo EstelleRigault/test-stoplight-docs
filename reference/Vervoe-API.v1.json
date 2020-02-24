@@ -1,0 +1,46 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Vervoe API",
+    "version": "1.0",
+    "description": "api description",
+    "contact": {
+      "name": "Alex"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/example": {
+      "get": {
+        "summary": "See everything ever",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-example",
+        "description": "Description would go here",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "slug"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
