@@ -1,46 +1,129 @@
 {
-  "openapi": "3.0.0",
   "info": {
-    "title": "Vervoe API",
+    "title": "To-dos",
     "version": "1.0",
-    "description": "api description",
+    "description": "API example",
     "contact": {
-      "name": "Alex"
+      "name": "Stoplight",
+      "url": "https://stoplight.io"
+    },
+    "license": {
+      "name": "MIT"
     }
   },
-  "servers": [
-    {
-      "url": "http://localhost:3000"
-    }
-  ],
   "paths": {
-    "/example": {
-      "get": {
-        "summary": "See everything ever",
+    "/todos/send-invite": {
+      "post": {
+        "summary": "Invite Candidate to Complete Assessment",
         "tags": [],
-        "responses": {},
-        "operationId": "get-example",
-        "description": "Description would go here",
-        "parameters": [
-          {
+        "responses": {
+          "200": {
+            "description": "OK",
             "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "slug"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "caUiid": {
+                      "type": "string"
+                    }
+                  }
+                }
               }
             }
           }
-        }
+        },
+        "operationId": "post-todos-send-invite",
+        "description": "Invites the candidate to complete the assessment by assessment slug.",
+        "parameters": [
+          {
+            "type": "string",
+            "in": "query",
+            "name": "slug",
+            "description": "Assessment slug to which the candidate is invited."
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "candidateEmail": {
+                  "type": "string",
+                  "example": "candidate@example.com",
+                  "description": "The candidate’s email address."
+                }
+              }
+            },
+            "x-examples": {
+              "example-1": {
+                "candidateEmail": "candidate@example.com",
+                "candidateFirstName": "Firstname",
+                "candidateLastName": "Lastname",
+                "sendInvitationEmail": true,
+                "redirectCandidateUrl": "https://partner-website.com/candidate-landing-page",
+                "candidateAssessmentUuid": "cbb3e136-ef30-4452-955b-1835a79caa65"
+              }
+            },
+            "description": ""
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "candidateEmail": {
+                  "type": "string"
+                }
+              }
+            },
+            "x-examples": {
+              "example-1": {}
+            }
+          }
+        ]
       }
+    },
+    "/todos": {},
+    "/todos/{todoId}": {
+      "parameters": [
+        {
+          "name": "todoId",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "Todos"
+    }
+  ],
+  "securityDefinitions": {
+    "apikey": {
+      "name": "apikey",
+      "type": "apiKey",
+      "in": "query",
+      "description": "Use `?apikey=123` to authenticate requests. It's super secure."
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "host": "api.vervoe.com",
+  "swagger": "2.0",
+  "basePath": "/api/integration/"
 }
