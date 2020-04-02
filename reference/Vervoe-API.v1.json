@@ -12,7 +12,7 @@
     }
   },
   "paths": {
-    "/todos/send-invite": {
+    "send-invite/{slug}": {
       "post": {
         "summary": "Invite Candidate to Complete Assessment",
         "tags": [],
@@ -40,12 +40,6 @@
         "operationId": "post-todos-send-invite",
         "description": "Invites the candidate to complete the assessment by assessment slug.",
         "parameters": [
-          {
-            "type": "string",
-            "in": "query",
-            "name": "slug",
-            "description": "Assessment slug to which the candidate is invited."
-          },
           {
             "in": "body",
             "name": "body",
@@ -85,9 +79,22 @@
             "x-examples": {
               "example-1": {}
             }
+          },
+          {
+            "type": "string",
+            "in": "header"
           }
         ]
-      }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "slug",
+          "in": "path",
+          "required": true,
+          "description": "Assessment slug to which the candidate is invited.\n"
+        }
+      ]
     },
     "/todos": {},
     "/todos/{todoId}": {
